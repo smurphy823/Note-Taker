@@ -1,12 +1,16 @@
-const router = require("express").Router();
-const path = require("path");
-
-router.get("/notes", function(req, res){
-    res.sendFile(path.join(__dirname, "../public/notes.html"))
-})
-
-router.get("*", function(req, res){
-    res.sendFile(path.join(__dirname, "../public/index.html"))
-})
-
-module.exports = router
+// DEPENDENCIES
+// We need to include the path package to get the correct file path for our html
+const path = require('path');
+// ROUTING
+module.exports = (app) => {
+  app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/notes.html'));
+  });
+  app.get('/index', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+  });
+  // If no matching route is found default to home
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+  });
+};
